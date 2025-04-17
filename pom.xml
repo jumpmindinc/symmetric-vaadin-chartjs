@@ -10,17 +10,17 @@
     <description>Integration of ChartJs for Vaadin platform</description>
 
     <properties>
-        <vaadin.version>14.6.5</vaadin.version>
+        <vaadin.version>24.3.12</vaadin.version>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <jetty.version>9.4.28.v20200408</jetty.version>
+        <jetty.version>11.0.25</jetty.version>
     </properties>
     <organization>
-		<name>JD Rudie</name>
+		<name>JumpMind</name>
     </organization>
     <licenses>
         <license>
@@ -94,7 +94,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>3.8.1</version>
+            <version>6.0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -105,7 +105,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.4.2</version>
                 <configuration>
                     <archive>
                         <index>true</index>
@@ -122,7 +122,7 @@
 		   <plugin>
 			<groupId>net.revelc.code.formatter</groupId>
 			<artifactId>formatter-maven-plugin</artifactId>
-			<version>2.16.0</version>
+			<version>2.26.0</version>
 		   </plugin>
             <plugin>
                 <groupId>com.vaadin</groupId>
@@ -161,7 +161,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.7.1</version>
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
 							<descriptorRefs>
@@ -189,7 +189,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.3.1</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
@@ -203,7 +203,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
-                        <version>3.1.2</version>
+                        <version>3.4.2</version>
                         <configuration>
                             <!-- Generated file that shouldn't be included in add-ons -->
                             <excludes>
@@ -282,7 +282,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.2</version>
+                        <version>3.5.3</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -298,7 +298,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.1.0</version>
+                        <version>3.3.1</version>
                         <executions>
                             <execution>
                                 <!-- Since the view class is defined in test, after compilation
