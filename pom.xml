@@ -19,9 +19,11 @@
 
         <jetty.version>11.0.25</jetty.version>
     </properties>
+
     <organization>
 		<name>JumpMind</name>
     </organization>
+
     <licenses>
         <license>
             <name>Apache 2</name>
@@ -29,6 +31,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -49,10 +52,12 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
         <repository>
             <id>Vaadin Directory</id>
             <url>https://maven.vaadin.com/vaadin-addons</url>
         </repository>
+
         <!-- Repository needed for prerelease versions of Vaadin -->
         <repository>
             <id>Vaadin prereleases</id>
@@ -68,6 +73,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
+
         <!-- Repository needed for prerelease versions of Vaadin -->
         <pluginRepository>
             <id>Vaadin prereleases</id>
@@ -80,11 +86,7 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-testbench</artifactId>
@@ -95,6 +97,12 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>6.0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -119,11 +127,13 @@
                     </archive>
                 </configuration>
             </plugin>
+
 		   <plugin>
 			<groupId>net.revelc.code.formatter</groupId>
 			<artifactId>formatter-maven-plugin</artifactId>
 			<version>2.26.0</version>
 		   </plugin>
+
             <plugin>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-maven-plugin</artifactId>
@@ -136,6 +146,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -186,6 +197,7 @@
                             </execution>
                         </executions>
                     </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -200,6 +212,7 @@
                             </execution>
                         </executions>
                     </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
@@ -219,9 +232,11 @@
         <!-- Run (demo) in production mode-->
         <profile>
             <id>production</id>
+
             <properties>
                 <vaadin.productionMode>true</vaadin.productionMode>
             </properties>
+
             <dependencies>
                 <dependency>
                     <groupId>com.vaadin</groupId>
@@ -279,6 +294,7 @@
                             </execution>
                         </executions>
                     </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
@@ -296,6 +312,7 @@
                             <enableAssertions>true</enableAssertions>
                         </configuration>
                     </plugin>
+
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.3.1</version>

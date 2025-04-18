@@ -1,7 +1,5 @@
 package org.vaadin.addons.chartjs.test;
 
-import elemental.json.JsonValue;
-import org.junit.Assert;
 import org.junit.Test;
 import org.vaadin.addons.chartjs.config.LineChartConfig;
 import org.vaadin.addons.chartjs.data.LineDataset;
@@ -13,9 +11,8 @@ import org.vaadin.addons.chartjs.options.scale.Axis;
 import org.vaadin.addons.chartjs.options.scale.LinearScale;
 import org.vaadin.addons.chartjs.options.scale.LogarithmicScale;
 
-/**
- * @author michael@byteowls.com
- */
+import static org.junit.Assert.assertNotNull;
+
 public class ChartJsTest {
 
   @Test
@@ -73,7 +70,6 @@ public class ChartJsTest {
         .and()
         .done();
 
-    JsonValue jsonValue = config.buildJson();
-    Assert.assertNotNull(jsonValue);
+    assertNotNull(config.buildJson());
   }
 }
