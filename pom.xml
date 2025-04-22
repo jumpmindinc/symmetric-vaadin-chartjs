@@ -3,9 +3,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.vaadin.addons.chartjs</groupId>
-    <artifactId>chartjs</artifactId>
-    <version>0.1.39</version>
+    <groupId>org.jumpmind</groupId>
+    <artifactId>vaadin-chartjs</artifactId>
+    <version>0.1.40</version>
 	<name>ChartJs add-on for Vaadin 14+</name>
     <description>Integration of ChartJs for Vaadin platform</description>
 
