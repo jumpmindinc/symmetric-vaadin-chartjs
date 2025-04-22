@@ -31,7 +31,7 @@ This add-on was originally created by [moberwasserlechner](https://github.com/mo
 ```xml
 <dependencies>
   <dependency>
-    <groupId>org.jumpmind</groupId>
+    <groupId>org.jumpmind.vaadin</groupId>
     <artifactId>vaadin-chartjs</artifactId>
     <version>${latest.version}</version>
   </dependency>
@@ -46,7 +46,7 @@ repositories {
 }
 
 dependencies {
-  compile ("org.jumpmind:vaadin-chartjs:latest.version")
+  compile ("org.jumpmind.vaadin:vaadin-chartjs:latest.version")
 }
 ```
 
