@@ -1,23 +1,11 @@
-# Vaadin 14 Chart.js
-Vaadin 14 addon for the Chart.js charting library. https://github.com/chartjs/Chart.js
+# Vaadin 24 Chart.js
+Vaadin 24 addon for the Chart.js charting library. https://github.com/chartjs/Chart.js
 
 ## Notice
 
-This add-on was originally created by [moberwasserlechner](https://github.com/moberwasserlechner/), but the repository is now archived. I reworked it to work with Vaadin 14 because I had to upgrade an existing Vaadin 8 project using this add-on to Vaadin 14. This is probably not the most efficient implementation (I currently send the state to the client every time it is changed), and I am open to pull requests. I have also deprecated a few features.
+This add-on was originally created by [moberwasserlechner](https://github.com/moberwasserlechner/), and the repository is now archived. It was later reworked by [rudiejd](https://github.com/rudiejd/) to work with Vaadin 14. JumpMind has taken it a bit further by upgrading the project dependencies, ensuring its compatibility with Java 17 and Vaadin 24+, and updating to the latest 2.X version of ChartJS. Potential implementation improvements include better state management (it currently sends state to the client every time it is changed), and reworking the library to work with ChartJS 4.x.
 
 ## Features
-### Deprecated
-* Menu API
-    * can be replaced by Vaadin 14 Menu component(s).
-* Download image of chart
-    * Most modern browsers allow you to download a canvas
-* Annotations
-    * I plan to re-implement and test this, but haven't yet
-* Pan support
-    * Plan to fix panning but haven't quite figured it out yet
-* Legend/Data point click listeners
-    * May reimplement in the future, but I want a working version of this add-on first
-
 ### Current
 * Fluent api to configure the charts
 * Supported chart types are
@@ -43,9 +31,9 @@ This add-on was originally created by [moberwasserlechner](https://github.com/mo
 ```xml
 <dependencies>
   <dependency>
-    <groupId>org.vaadin.addons.chartjs</groupId>
-    <artifactId>chartjs</artifactId>
-    <version>use.lastest.version</version>
+    <groupId>org.jumpmind</groupId>
+    <artifactId>vaadin-chartjs</artifactId>
+    <version>${latest.version}</version>
   </dependency>
 </dependencies>
 ```
@@ -58,7 +46,7 @@ repositories {
 }
 
 dependencies {
-  compile ("org.vaadin.addons.chartjs:vaadin-chartjs:use.latest.version")
+  compile ("org.jumpmind:vaadin-chartjs:latest.version")
 }
 ```
 
@@ -145,30 +133,14 @@ To start it:
 ## Prerequisite
 
 ### Addon
-* JDK 8
-* Vaadin 8.x
+* JDK 17
+* Vaadin 24.x
 
 ## Missing something?
 
 The Vaadin-Chartjs is only a wrapper. So if you have any feature requests or found any bugs in the javascript lib please use Chart.js's issue tracker https://github.com/chartjs/Chart.js/issues
 
-In all other cases please create a issue at https://github.com/rudiejd/vaadin-chartjs/issues or contribute to the project yourself. For contribution see the next section.
-
-## Contribute
-
-### Fix a bug or create a new feature
-
-Please do not mix more than one issue in a feature branch. Each feature/bugfix should have its own branch and its own Pull Request (PR).
-
-1. Create a issue and describe what you want to do at [Issue Tracker](https://github.com/rudiejd/vaadin-chartjs/issues)
-2. Create your feature branch (`git checkout -b feature/my-feature` or `git checkout -b bugfix/my-bugfix`)
-3. Test your changes to the best of your ability.
-4. Add a demo view to the demo application
-5. Commit your changes (`git commit -m 'Describe feature or bug'`)
-6. Push to the branch (`git push origin feature/my-feature`)
-7. Create a Github Pull Request
-
-### Code Style
+## Code Style
 
 This repo includes a .editorconfig file, which your IDE should pickup automatically.
 
