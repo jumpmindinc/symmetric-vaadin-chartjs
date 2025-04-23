@@ -16,7 +16,6 @@ import org.vaadin.addons.chartjs.options.TooltipsCallbacks;
 import org.vaadin.addons.chartjs.utils.JUtils;
 
 @JsModule("./chart/hammer.min.js")
-@JsModule("./chart/Moment.js")
 @JsModule("./chart/Chart.min.js")
 @JsModule("./chart/chartjs-plugin-zoom.min.js")
 @JsModule("./chart/chartjs-plugin-annotation.min.js")
