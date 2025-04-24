@@ -5,7 +5,7 @@
 
     <groupId>org.jumpmind.vaadin</groupId>
     <artifactId>vaadin-chartjs</artifactId>
-    <version>0.1.41</version>
+    <version>0.1.42</version>
 	<name>ChartJs add-on for Vaadin 24+</name>
     <description>Integration of ChartJs for Vaadin platform</description>
 
