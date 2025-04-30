@@ -5,7 +5,7 @@
 
     <groupId>org.jumpmind.vaadin</groupId>
     <artifactId>vaadin-chartjs</artifactId>
-    <version>0.1.43</version>
+    <version>0.1.44</version>
 	<name>ChartJs add-on for Vaadin 24+</name>
     <description>Integration of ChartJs for Vaadin platform</description>
 
@@ -220,7 +220,7 @@
                         <configuration>
                             <!-- Generated file that shouldn't be included in add-ons -->
                             <excludes>
-                            <exclude>**/DemoView.java</exclude>
+                                <exclude>**/DemoView.java</exclude>
                                 <exclude>META-INF/VAADIN/config/flow-build-info.json</exclude>
                             </excludes>
                         </configuration>
@@ -238,10 +238,16 @@
             </properties>
 
             <dependencies>
-                <dependency>
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>flow-server-production-mode</artifactId>
-                </dependency>
+                    <dependency>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin</artifactId>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>com.vaadin</groupId>
+                                <artifactId>vaadin-dev</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
             </dependencies>
 
             <build>
@@ -256,6 +262,17 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>META-INF/VAADIN/config/*</exclude>
+                                <exclude>META-INF/VAADIN/webapp/</exclude>
+                            </excludes>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
