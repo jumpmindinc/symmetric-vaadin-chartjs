@@ -8,6 +8,6 @@ on:
 
 jobs:
   check-pr:
-    uses: jumpmindinc/platform-github-workflows/.github/workflows/.reusable-common-pr-check.yaml@v4
+    uses: ./.github/workflows/.reusable-common-pr-check.yaml
     permissions:
       pull-requests: write
