@@ -1,0 +1,13 @@
+name: PR Check
+on:
+  pull_request:
+    branches:
+      - main
+      - releases/*
+    types: [ opened, reopened, edited, synchronize ]
+
+jobs:
+  check-pr:
+    uses: jumpmindinc/platform-github-workflows/.github/workflows/.reusable-common-pr-check.yaml@v4
+    permissions:
+      pull-requests: write
