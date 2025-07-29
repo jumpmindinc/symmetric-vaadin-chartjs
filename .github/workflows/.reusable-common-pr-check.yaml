@@ -16,6 +16,9 @@ jobs:
           text: ${{ github.event.pull_request.title }}
           regex: '${{ vars.PR_POLICY_TITLE_PATTERN }}'
 
+      - run: |
+          echo "Using PR Policy Title Pattern: ${{ vars.PR_POLICY_TITLE_PATTERN }}"
+
       - name: Validate Title
         id: title-pattern-check
         shell: bash
@@ -43,19 +46,19 @@ jobs:
                 break;
               }
             }
-            
+
             let commentBody = `Please update your pull request title to the required format:
-            
+
             **RegEx**
             \`\`\`
             ${{ vars.PR_POLICY_TITLE_PATTERN }}
             \`\`\`
-            
+
             **Simplified**
             \`\`\`
             <type>\[\!\]: <summary>
             \`\`\`
-            
+
             * \`type\` - The type of pull request. This can be one of the following types:
               * \`feat\` - An implementation of a feature; increments the Minor version unless suffixed with \`\!\`.
               * \`fix\` - A general bugfix; increments the Patch version unless suffixed with \`\!\`.
