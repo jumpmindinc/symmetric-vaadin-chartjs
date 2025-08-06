@@ -43,28 +43,13 @@ jobs:
                 break;
               }
             }
-            
+
             let commentBody = `Please update your pull request title to the required format:
-            
+
             **RegEx**
             \`\`\`
             ${{ vars.PR_POLICY_TITLE_PATTERN }}
             \`\`\`
-            
-            **Simplified**
-            \`\`\`
-            <type>\[\!\]: <summary>
-            \`\`\`
-            
-            * \`type\` - The type of pull request. This can be one of the following types:
-              * \`feat\` - An implementation of a feature; increments the Minor version unless suffixed with \`\!\`.
-              * \`fix\` - A general bugfix; increments the Patch version unless suffixed with \`\!\`.
-              * \`chore\` - Small maintance related task, typically something that doesn't affect the source code.
-              * \`ci\` - For tasks relating to GitHub workflows and some minor gradle adjustments that affect the CI process.
-              * \`docs\` - Documentation only changes.
-              * \`test\` - Used when adding missing tests or adjusting existing tests.
-            * \`\!\` - Indicates this PR includes breaking changes, necessitating an increment of the Major version regardless of \`type\`.
-            * \`summary\` - A short one line summary of the PR.
 
             ---
 

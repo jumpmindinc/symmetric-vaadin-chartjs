@@ -1,0 +1,147 @@
+name: Release
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                type: string
+                description: Full version (major.minor.patch) number to release (example 1.2.3).
+                required: true
+            dry-run:
+                description: Dry run the release? Primary use is testing.
+                required: false
+                default: false
+
+run-name: "Release: ${{ inputs.version }}"
+
+jobs:
+    create-release:
+        env:
+            INTERNAL_REPO_URL: ${{ secrets.INTERNAL_REPO_URL }}
+            INTERNAL_REPO_USERNAME: ${{ secrets.INTERNAL_REPO_USERNAME }}
+            INTERNAL_REPO_PASSWORD: ${{ secrets.INTERNAL_REPO_PASSWORD }}
+            JAVA_VERSION: '17'
+
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - name: Validate version input
+              shell: bash
+              run: |
+                  echo "Validating release version: ${{ github.event.inputs.version }}"
+                  if [[ ! "${{ github.event.inputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+                      echo "ERROR: Invalid version input. Must be of the format major.minor.patch (e.g. 2.16.0)."
+                      exit 1
+                  fi
+
+            - name: Checkout Source
+              uses: actions/checkout@v4
+              with:
+                  clean: true
+                  fetch-depth: 0
+
+            - name: Set up Java
+              uses: actions/setup-java@v4
+              with:
+                  java-version: ${{ env.JAVA_VERSION }}
+                  distribution: 'temurin'
+                  cache: maven
+
+            - name: Create Maven settings.xml
+              run: |
+                  mkdir -p ~/.m2
+                  cat > ~/.m2/settings.xml <<EOF
+                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+                      <servers>
+                          <server>
+                              <id>internal-repo</id>
+                              <username>${INTERNAL_REPO_USERNAME}</username>
+                              <password>${INTERNAL_REPO_PASSWORD}</password>
+                          </server>
+                      </servers>
+                      <profiles>
+                          <profile>
+                              <id>internal</id>
+                              <activation>
+                                  <activeByDefault>true</activeByDefault>
+                              </activation>
+                              <repositories>
+                                  <repository>
+                                      <id>internal-repo</id>
+                                      <url>${INTERNAL_REPO_URL}</url>
+                                  </repository>
+                              </repositories>
+                              <pluginRepositories>
+                                  <pluginRepository>
+                                      <id>internal-repo</id>
+                                      <url>${INTERNAL_REPO_URL}</url>
+                                  </pluginRepository>
+                              </pluginRepositories>
+                          </profile>
+                      </profiles>
+                  </settings>
+                  EOF
+
+            - name: Deploy
+              if: ${{ github.event.inputs.dry-run != 'true' }}
+              run: mvn clean deploy -s ~/.m2/settings.xml
+
+            - name: Does Tag Exist?
+              id: check_tag_exists
+              run: |
+                  TAG="${{ github.event.inputs.version }}"
+                  if git rev-parse "$TAG" >/dev/null 2>&1; then
+                      echo "Tag $TAG already exists. Skipping tagging."
+                  else
+                      echo "should_tag=true" >> $GITHUB_OUTPUT
+                  fi
+
+            - name: Create Tag
+              if: steps.check_tag_exists.outputs.should_tag
+              id: create_tag
+              run: |
+                  TAG="${{ github.event.inputs.version }}"
+                  git tag $TAG
+                  git push origin $TAG
+
+                  echo "TAG=$TAG" >> $GITHUB_OUTPUT
+
+            - name: Build Changelog
+              id: changelog
+              if: steps.check_tag_exists.outputs.should_tag
+              run: |
+                  CURRENT_TAG=${{ steps.create_tag.outputs.TAG }}
+
+                  # Get the previous tag (sorted by commit date, excluding current tag)
+                  PREV_TAG=$(git tag --sort=-committerdate | grep -v "$CURRENT_TAG" | head -n 1)
+
+                  # If no previous tag exists, use the first commit
+                  if [ -z "$PREV_TAG" ]; then
+                  PREV_TAG=$(git rev-list --max-parents=0 HEAD)
+                  fi
+
+                  # Get commit messages between the previous and current tag
+                  CHANGELOG=$(git log --pretty="- %s (%h)" $PREV_TAG..$CURRENT_TAG)
+
+                  # Write changelog to environment file
+                  echo "CHANGELOG<<EOF" >> $GITHUB_ENV
+                  echo "$CHANGELOG" >> $GITHUB_ENV
+                  echo "EOF" >> $GITHUB_ENV
+
+            - name: Create Release in GitHub
+              if: steps.check_tag_exists.outputs.should_tag
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: ${{ steps.create_tag.outputs.TAG }}
+                  name: "Release ${{ steps.create_tag.outputs.TAG }}"
+                  body: |
+                      ## Release ${{ steps.create_tag.outputs.TAG }}
+
+                      ### Changes
+                      ${{ env.CHANGELOG }}
+                  draft: false
+                  prerelease: false
