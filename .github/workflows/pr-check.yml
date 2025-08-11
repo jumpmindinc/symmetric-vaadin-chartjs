@@ -3,11 +3,11 @@ on:
   pull_request:
     branches:
       - main
-      - releases/*
+      - release/**
     types: [ opened, reopened, edited, synchronize ]
 
 jobs:
   check-pr:
-    uses: ./.github/workflows/.reusable-common-pr-check.yaml
+    uses: ./.github/workflows/.common-pr-check.yml
     permissions:
       pull-requests: write
