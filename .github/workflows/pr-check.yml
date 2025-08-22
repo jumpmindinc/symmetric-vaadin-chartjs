@@ -2,12 +2,15 @@ name: PR Check
 on:
   pull_request:
     branches:
-      - main
-      - release/**
+      - 'main'
     types: [ opened, reopened, edited, synchronize ]
+  push:
+    branches:
+      - 'main'
 
 jobs:
-  check-pr:
-    uses: ./.github/workflows/.common-pr-check.yml
-    permissions:
-      pull-requests: write
+  build:
+    uses: ./.github/workflows/build.yml
+
+  test:
+    uses: ./.github/workflows/test.yml
