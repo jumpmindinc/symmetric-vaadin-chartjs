@@ -17,16 +17,17 @@ run-name: "Release: ${{ inputs.version }}"
 jobs:
     create-release:
         env:
-            INTERNAL_REPO_URL: ${{ secrets.INTERNAL_REPO_URL }}
-            INTERNAL_REPO_USERNAME: ${{ secrets.INTERNAL_REPO_USERNAME }}
-            INTERNAL_REPO_PASSWORD: ${{ secrets.INTERNAL_REPO_PASSWORD }}
+            INTERNAL_REPO_URL: ${{ secrets.deployUploadUrl }}
+            INTERNAL_REPO_USERNAME: ${{ secrets.deployUser }}
+            INTERNAL_REPO_PASSWORD: ${{ secrets.deployPassword }}
             JAVA_VERSION: '17'
 
-        runs-on: ubuntu-latest
+        runs-on: runs-on=${{ github.run_id }}/runner=4cpu-linux-x64/extras=s3-cache
         permissions:
             contents: write
 
         steps:
+            - uses: runs-on/action@v2
             - name: Validate version input
               shell: bash
               run: |
