@@ -59,7 +59,7 @@ jobs:
                             xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
                       <servers>
                           <server>
-                              <id>internal-repo</id>
+                              <id>internal-releases</id>
                               <username>${INTERNAL_REPO_USERNAME}</username>
                               <password>${INTERNAL_REPO_PASSWORD}</password>
                           </server>
@@ -70,6 +70,9 @@ jobs:
                               <activation>
                                   <activeByDefault>true</activeByDefault>
                               </activation>
+                              <properties>
+                                  <altReleaseDeploymentRepository>internal-releases::default::${{ secrets.MAVEN_RELEASE_URL }}</altReleaseDeploymentRepository>
+                              </properties>
                               <repositories>
                                   <repository>
                                       <id>internal-repo</id>
