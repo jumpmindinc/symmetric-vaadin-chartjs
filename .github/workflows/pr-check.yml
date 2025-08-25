@@ -9,12 +9,7 @@ on:
       - 'main'
 
 jobs:
-  # TODO: remove check-pr job once template no longer enforces job.
-  check-pr:
-    uses: ./.github/workflows/.common-pr-check.yml
-    permissions:
-      pull-requests: write
-  
+
   build:
     uses: ./.github/workflows/build.yml
 
