@@ -71,7 +71,7 @@ jobs:
                                   <activeByDefault>true</activeByDefault>
                               </activation>
                               <properties>
-                                  <altReleaseDeploymentRepository>internal-releases::default::${{ secrets.MAVEN_RELEASE_URL }}</altReleaseDeploymentRepository>
+                                  <altReleaseDeploymentRepository>internal-releases::default::${INTERNAL_REPO_URL}</altReleaseDeploymentRepository>
                               </properties>
                               <repositories>
                                   <repository>
