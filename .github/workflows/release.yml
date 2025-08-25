@@ -17,9 +17,9 @@ run-name: "Release: ${{ inputs.version }}"
 jobs:
     create-release:
         env:
-            INTERNAL_REPO_URL: ${{ secrets.deployUploadUrl }}
-            INTERNAL_REPO_USERNAME: ${{ secrets.deployUser }}
-            INTERNAL_REPO_PASSWORD: ${{ secrets.deployPassword }}
+            INTERNAL_REPO_URL: ${{ secrets.MAVEN_DEPLOY_URL }}
+            INTERNAL_REPO_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+            INTERNAL_REPO_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
             JAVA_VERSION: '17'
 
         runs-on: runs-on=${{ github.run_id }}/runner=4cpu-linux-x64/extras=s3-cache
