@@ -50,14 +50,14 @@ jobs:
 
                       let commentBody = `Please update your pull request title to the required format:
 
-                      **RegEx**
+                      **RegEx Format**
                       \`\`\`
                       ${{ vars.PR_POLICY_TITLE_PATTERN }}
                       \`\`\`
 
-                      **Simplified**
+                      **Simplified explanation**
                       \`\`\`
-                      { issue number }: { a short one line summary of the PR }
+                      {the 7 digit issue number}: {a short one line summary of the PR}
                       \`\`\`
                       ---
                       `;
