@@ -5,8 +5,8 @@ on:
     workflow_call:
 
 jobs:
-
     pr-title-check:
+        name: PR Title Check
         if: ${{ vars.PR_POLICY_TITLE_PATTERN && vars.PR_POLICY_TITLE_PATTERN != '' }}
         runs-on: ubuntu-latest
         permissions:
