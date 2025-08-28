@@ -151,3 +151,7 @@ Try to change only parts your feature or bugfix requires.
 ## License
 
 MIT. Please see [LICENSE](https://github.com/rudiejd/vaadin-chartjs/blob/master/LICENSE).
+
+## License
+
+This is a test commit.
