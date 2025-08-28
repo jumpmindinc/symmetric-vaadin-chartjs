@@ -5,7 +5,8 @@ on:
     workflow_call:
 
 jobs:
-    policy-check:
+
+    pr-title-check:
         if: ${{ vars.PR_POLICY_TITLE_PATTERN && vars.PR_POLICY_TITLE_PATTERN != '' }}
         runs-on: ubuntu-latest
         permissions:
@@ -59,8 +60,6 @@ jobs:
                       { issue number }: { a short one line summary of the PR }
                       \`\`\`
                       ---
-
-                      ref: policy-pr-title
                       `;
 
                       if (existingCommentId) {
