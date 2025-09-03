@@ -1,4 +1,4 @@
-# Vaadin 24 Chart.js
+TEST# Vaadin 24 Chart.js
 Vaadin 24 addon for the Chart.js charting library. https://github.com/chartjs/Chart.js
 
 ## Notice
