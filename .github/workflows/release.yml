@@ -17,14 +17,12 @@ run-name: "Release: ${{ inputs.version }}"
 jobs:
     create-release:
         env:
-            INTERNAL_REPO_URL: ${{ secrets.MAVEN_DEPLOY_URL }}
-            INTERNAL_REPO_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-            INTERNAL_REPO_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
             JAVA_VERSION: '17'
 
-        runs-on: runs-on=${{ github.run_id }}/runner=4cpu-linux-x64/extras=s3-cache
+        runs-on: runs-on=${{ github.run_id }}/runner=4cpu-linux-x64
         permissions:
             contents: write
+            packages: write
 
         steps:
             - uses: runs-on/action@v2
@@ -49,50 +47,16 @@ jobs:
                   java-version: ${{ env.JAVA_VERSION }}
                   distribution: 'temurin'
                   cache: maven
-
-            - name: Create Maven settings.xml
-              run: |
-                  mkdir -p ~/.m2
-                  cat > ~/.m2/settings.xml <<EOF
-                  <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-                      <servers>
-                          <server>
-                              <id>internal-releases</id>
-                              <username>${INTERNAL_REPO_USERNAME}</username>
-                              <password>${INTERNAL_REPO_PASSWORD}</password>
-                          </server>
-                      </servers>
-                      <profiles>
-                          <profile>
-                              <id>internal</id>
-                              <activation>
-                                  <activeByDefault>true</activeByDefault>
-                              </activation>
-                              <properties>
-                                  <altReleaseDeploymentRepository>internal-releases::default::${INTERNAL_REPO_URL}</altReleaseDeploymentRepository>
-                              </properties>
-                              <repositories>
-                                  <repository>
-                                      <id>internal-repo</id>
-                                      <url>${INTERNAL_REPO_URL}</url>
-                                  </repository>
-                              </repositories>
-                              <pluginRepositories>
-                                  <pluginRepository>
-                                      <id>internal-repo</id>
-                                      <url>${INTERNAL_REPO_URL}</url>
-                                  </pluginRepository>
-                              </pluginRepositories>
-                          </profile>
-                      </profiles>
-                  </settings>
-                  EOF
+                  server-id: github
+                  server-username: GITHUB_ACTOR
+                  server-password: GITHUB_TOKEN
 
             - name: Deploy
               if: ${{ github.event.inputs.dry-run != 'true' }}
-              run: mvn clean deploy -s ~/.m2/settings.xml
+              run: mvn clean deploy
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_ACTOR: ${{ github.actor }}
 
             - name: Does Tag Exist?
               id: check_tag_exists
