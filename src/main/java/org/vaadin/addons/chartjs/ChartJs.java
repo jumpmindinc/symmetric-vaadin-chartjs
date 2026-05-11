@@ -85,9 +85,9 @@ public class ChartJs extends Component implements HasSize {
     if (connected) {
       ChartJsUtils.safelyExecuteJs(
           getUI().orElse(UI.getCurrent()),
-          "document.getElementById($0).chartjs.config = $1",
+          "document.getElementById($0).chartjs.config = JSON.parse($1)",
           getChartId(),
-          chartConfig.buildJson());
+          chartConfig.buildJson().toJson());
       addAllFunctions();
     }
   }
@@ -100,10 +100,10 @@ public class ChartJs extends Component implements HasSize {
       ChartJsUtils.safelyExecuteJs(
           getUI().orElse(UI.getCurrent()),
           "document.getElementById($0).chartjs = new"
-              + " Chart(document.getElementById($1).getContext('2d'), $2)",
+              + " Chart(document.getElementById($1).getContext('2d'), JSON.parse($2))",
           getChartId(),
           getChartCanvasId(),
-          chartConfig.buildJson());
+          chartConfig.buildJson().toJson());
       addAllFunctions();
     }
     connected = true;
