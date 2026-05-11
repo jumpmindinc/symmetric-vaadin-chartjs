@@ -17,7 +17,7 @@ run-name: "Release: ${{ inputs.version }}"
 jobs:
     create-release:
         env:
-            JAVA_VERSION: '17'
+            JAVA_VERSION: '21'
 
         runs-on: runs-on=${{ github.run_id }}/runner=4cpu-linux-x64
         permissions:
