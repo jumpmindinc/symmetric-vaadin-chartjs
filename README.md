@@ -1,9 +1,9 @@
-# Vaadin 24 Chart.js
-Vaadin 24 addon for the Chart.js charting library. https://github.com/chartjs/Chart.js
+# Vaadin 25 Chart.js
+Vaadin 25 addon for the Chart.js charting library. https://github.com/chartjs/Chart.js
 
 ## Notice
 
-This add-on was originally created by [moberwasserlechner](https://github.com/moberwasserlechner/), and the repository is now archived. It was later reworked by [rudiejd](https://github.com/rudiejd/) to work with Vaadin 14. JumpMind has taken it a bit further by upgrading the project dependencies, ensuring its compatibility with Java 17 and Vaadin 24+, and updating to the latest 2.X version of ChartJS. Potential implementation improvements include better state management (it currently sends state to the client every time it is changed), and reworking the library to work with ChartJS 4.x.
+This add-on was originally created by [moberwasserlechner](https://github.com/moberwasserlechner/), and the repository is now archived. It was later reworked by [rudiejd](https://github.com/rudiejd/) to work with Vaadin 14. JumpMind has taken it a bit further by upgrading the project dependencies, ensuring its compatibility with Java 21 and Vaadin 25+, and updating to the latest 2.X version of ChartJS. Potential implementation improvements include better state management (it currently sends state to the client every time it is changed), and reworking the library to work with ChartJS 4.x.
 
 ## Features
 ### Current
@@ -133,8 +133,8 @@ To start it:
 ## Prerequisite
 
 ### Addon
-* JDK 17
-* Vaadin 24.x
+* JDK 21
+* Vaadin 25.x
 
 ## Missing something?
 
