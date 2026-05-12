@@ -55,8 +55,12 @@ jobs:
                   server-id: central
                   server-username: CENTRAL_USERNAME
                   server-password: CENTRAL_PASSWORD
-                  gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-                  gpg-passphrase: GPG_PASSPHRASE
+
+            - name: Import GPG key
+              uses: crazy-max/ghaction-import-gpg@v7
+              with:
+                  gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+                  passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
             - name: Deploy
               if: ${{ github.event.inputs.dry-run != 'true' }}
