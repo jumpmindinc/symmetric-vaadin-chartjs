@@ -14,6 +14,12 @@ on:
 
 run-name: "Release: ${{ inputs.version }}"
 
+# Required secrets:
+#   CENTRAL_TOKEN_USERNAME  - Username token from central.sonatype.com → Account → Generate User Token
+#   CENTRAL_TOKEN_PASSWORD  - Password token from central.sonatype.com → Account → Generate User Token
+#   GPG_PRIVATE_KEY         - Armored private key: gpg --export-secret-keys --armor KEY_ID | base64
+#   GPG_PASSPHRASE          - Passphrase for the GPG key
+
 jobs:
     create-release:
         env:
@@ -22,7 +28,6 @@ jobs:
         runs-on: runs-on=${{ github.run_id }}/runner=4cpu-linux-x64
         permissions:
             contents: write
-            packages: write
 
         steps:
             - uses: runs-on/action@v2
@@ -47,16 +52,25 @@ jobs:
                   java-version: ${{ env.JAVA_VERSION }}
                   distribution: 'temurin'
                   cache: maven
-                  server-id: github
-                  server-username: GITHUB_ACTOR
-                  server-password: GITHUB_TOKEN
+                  server-id: central
+                  server-username: CENTRAL_USERNAME
+                  server-password: CENTRAL_PASSWORD
+                  gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+                  gpg-passphrase: GPG_PASSPHRASE
 
             - name: Deploy
               if: ${{ github.event.inputs.dry-run != 'true' }}
-              run: mvn clean deploy
+              run: mvn clean deploy -P release
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  GITHUB_ACTOR: ${{ github.actor }}
+                  CENTRAL_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
+                  CENTRAL_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
+                  GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+            - name: Build (dry run)
+              if: ${{ github.event.inputs.dry-run == 'true' }}
+              run: mvn clean verify -P release
+              env:
+                  GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
             - name: Does Tag Exist?
               id: check_tag_exists
