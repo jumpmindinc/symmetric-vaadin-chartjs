@@ -8,6 +8,7 @@
     <version>0.1.46</version>
 	<name>ChartJs add-on for Vaadin 25+</name>
     <description>Integration of ChartJs for Vaadin platform</description>
+    <url>https://github.com/jumpmindinc/symmetric-vaadin-chartjs</url>
 
     <properties>
         <vaadin.version>25.1.5</vaadin.version>
@@ -21,8 +22,23 @@
     </properties>
 
     <organization>
-		<name>JumpMind</name>
+		<name>Jumpmind</name>
+        <url>https://jumpmind.com</url>
     </organization>
+
+    <developers>
+        <developer>
+            <name>Jumpmind</name>
+            <organization>Jumpmind</organization>
+            <organizationUrl>https://jumpmind.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/jumpmindinc/symmetric-vaadin-chartjs.git</connection>
+        <developerConnection>scm:git:ssh://github.com/jumpmindinc/symmetric-vaadin-chartjs.git</developerConnection>
+        <url>https://github.com/jumpmindinc/symmetric-vaadin-chartjs</url>
+    </scm>
 
     <licenses>
         <license>
@@ -34,12 +50,9 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/jumpmindinc/symmetric-vaadin-chartjs</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://central.sonatype.com</url>
         </repository>
     </distributionManagement>
 
@@ -150,6 +163,44 @@
 			<artifactId>formatter-maven-plugin</artifactId>
 			<version>2.26.0</version>
 		   </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals><goal>jar-no-fork</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals><goal>jar</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.10.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>com.vaadin</groupId>
@@ -367,6 +418,31 @@
                                             <directory>${project.build.testOutputDirectory}</directory>
                                         </resource>
                                     </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals><goal>sign</goal></goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
                                 </configuration>
                             </execution>
                         </executions>
