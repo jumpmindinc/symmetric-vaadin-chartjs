@@ -64,7 +64,7 @@ jobs:
 
             - name: Deploy
               if: ${{ github.event.inputs.dry-run != 'true' }}
-              run: mvn clean deploy -P release
+              run: mvn clean deploy -P release,production
               env:
                   CENTRAL_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
                   CENTRAL_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
@@ -72,7 +72,7 @@ jobs:
 
             - name: Build (dry run)
               if: ${{ github.event.inputs.dry-run == 'true' }}
-              run: mvn clean verify -P release
+              run: mvn clean verify -P release,production
               env:
                   GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
