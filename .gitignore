@@ -12,3 +12,5 @@ hs_err_pid*
 *.iml
 package*json
 webpack*js
+/frontend/generated/
+/frontend/index.html
