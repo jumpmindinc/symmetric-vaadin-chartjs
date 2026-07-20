@@ -155,6 +155,12 @@
                             <Vaadin-Package-Version>1</Vaadin-Package-Version>
                         </manifestEntries>
                     </archive>
+                    <!-- Add-on jars must never carry the application build token.
+                         prepare-frontend generates it into target/classes; excluding it
+                         here keeps it out of the jar regardless of the build profile. -->
+                    <excludes>
+                        <exclude>META-INF/VAADIN/config/flow-build-info.json</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 
