@@ -5,7 +5,7 @@
 
     <groupId>org.jumpmind.symmetric</groupId>
     <artifactId>vaadin-chartjs</artifactId>
-    <version>0.1.46</version>
+    <version>0.1.47</version>
 	<name>ChartJs add-on for Vaadin 25+</name>
     <description>Integration of ChartJs for Vaadin platform</description>
     <url>https://github.com/jumpmindinc/symmetric-vaadin-chartjs</url>
